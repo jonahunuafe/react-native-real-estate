@@ -1,9 +1,11 @@
-import { View, Text, ScrollView, Image, TouchableOpacity, ImageSourcePropType } from 'react-native'
+import { View, Text, ScrollView, Image, TouchableOpacity, ImageSourcePropType, Alert } from 'react-native'
 import { SafeAreaView } from "react-native-safe-area-context"
 import icons from '@/constants/icons'
 import React from 'react'
 import images from '@/constants/images'
 import { settings } from '@/constants/data'
+import { useGlobalContext } from '@/lib/global-Provider'
+import { Logout } from '@/lib/appwrite'
 
 interface SettingsItemProps {
   icon: ImageSourcePropType;
@@ -27,8 +29,16 @@ const SettingsItem = ({ icon, title, onPress, textStyle, showArrow = true }: Set
 )
 
 const Profile = () => {
-  const handleLogout = () => {
+  const { user, refetch } = useGlobalContext();
 
+  const handleLogout = async () => {
+    const result = await Logout();
+
+    if(result) {
+      Alert.alert("Success, You've been logged out successfully.")
+    } else {
+      Alert.alert("Error, An error occured while logging out.")
+    }
   };
 
   return (
@@ -48,7 +58,7 @@ const Profile = () => {
         <View className="flex-row justify-center flex mt-5">
           <View className="flex flex-col items-center relative mt-5">
             <Image
-              source={images.avatar} 
+              source={{uri: user?.avatar}} 
               className="size-44 relative rounded-full"
             />
             <TouchableOpacity className="absolute bottom-11 right-2">
@@ -58,7 +68,7 @@ const Profile = () => {
 
               />
             </TouchableOpacity>
-            <Text className="text-2xl font-rubik-bold mt-2">Jonah</Text>
+            <Text className="text-2xl font-rubik-bold mt-2">{user?.name}</Text>
           </View>
         </View>
 
