@@ -64,7 +64,7 @@ export async function Logout() {
   }
 }
 
-export async function getUser() {
+export async function getCurrentUser() {
   try {
     const response = await account.get();
 
