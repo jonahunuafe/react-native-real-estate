@@ -35,10 +35,11 @@ const Profile = () => {
     const result = await Logout();
 
     if(result) {
-      Alert.alert("Success, You've been logged out successfully.")
+      Alert.alert("Success, You've been logged out successfully.");
     } else {
-      Alert.alert("Error, An error occured while logging out.")
+      Alert.alert("Error, An error occured while logging out.");
     }
+    refetch();
   };
 
   return (
