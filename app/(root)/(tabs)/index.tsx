@@ -5,8 +5,11 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Search from '@/components/Search';
 import { Card, FeaturedCard } from '@/components/Cards';
 import Filters from '@/components/Filters';
+import { useGlobalContext } from '@/lib/global-Provider';
 
 export default function Index() {
+  const { user } = useGlobalContext();
+
   return (
     <SafeAreaView className="bg-white h-full">
       <FlatList
@@ -22,14 +25,14 @@ export default function Index() {
             <View className="flex flex-row items-center justify-between mt-5">
               <View className="flex flex-row items-center">
                 <Image
-                  source={images.avatar}
+                  source={{ uri: user?.avatar }}
                   className="size-12 rounded-full"
                 />
                 <View className="flex flex-col items-start ml-2 justify-center">
                   <Text className="text-xs font-rubik text-black-100">
                     Good Morning
                   </Text>
-                  <Text className="text-base font-rubik-medium ">Jonah</Text>
+                  <Text className="text-base font-rubik-medium ">{user?.name}</Text>
                 </View>
               </View>
               <Image source={icons.bell} className="size-6" />
