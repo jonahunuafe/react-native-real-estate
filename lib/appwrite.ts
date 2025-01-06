@@ -1,4 +1,4 @@
-import { Account, Avatars, Client, Databases, OAuthProvider } from 'react-native-appwrite';
+import { Account, Avatars, Client, Databases, OAuthProvider, Query } from 'react-native-appwrite';
 import * as Linking from 'expo-linking';
 import { openAuthSessionAsync } from "expo-web-browser";
 
@@ -85,5 +85,20 @@ export async function getCurrentUser() {
   } catch(error) {
     console.error(error);
     return null;
+  }
+}
+
+export async function getLatestProperties() {
+  try {
+    const result = await databases.listDocuments(
+      config.databaseId!,
+      config.propertiesCollectionId!,
+      [Query.orderAsc("$createdAt"), Query.limit(5)]
+    )
+
+    return result.documents;
+  } catch(error) {
+    console.error(error);
+    return [];
   }
 }

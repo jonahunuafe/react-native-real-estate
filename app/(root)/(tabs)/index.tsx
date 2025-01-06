@@ -1,17 +1,19 @@
 import icons from '@/constants/icons';
 import images from '@/constants/images';
-import { FlatList, Image, Text, TouchableOpacity, View } from 'react-native';
+import { Button, FlatList, Image, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Search from '@/components/Search';
 import { Card, FeaturedCard } from '@/components/Cards';
 import Filters from '@/components/Filters';
 import { useGlobalContext } from '@/lib/global-Provider';
+// import seed from '@/lib/seed';
 
 export default function Index() {
   const { user } = useGlobalContext();
 
   return (
     <SafeAreaView className="bg-white h-full">
+      {/* <Button title="Seed" onPress={seed} /> */}
       <FlatList
         data={[1, 2, 3, 4]}
         renderItem={({item}) => <Card />}
@@ -53,7 +55,7 @@ export default function Index() {
               </View>
 
               <FlatList
-                data={[1, 2, 3]} 
+                data={[5, 6, 7]} 
                 renderItem={({item}) => <FeaturedCard />}
                 keyExtractor={(item) => item.toString()}
                 horizontal
