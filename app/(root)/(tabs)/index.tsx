@@ -1,6 +1,6 @@
 import icons from '@/constants/icons';
 import images from '@/constants/images';
-import { Button, FlatList, Image, Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, Button, FlatList, Image, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Search from '@/components/Search';
 import { Card, FeaturedCard } from '@/components/Cards';
@@ -10,6 +10,7 @@ import { router, useLocalSearchParams } from 'expo-router';
 import { useAppwrite } from '@/lib/useApprite';
 import { getLatestProperties, getProperties } from '@/lib/appwrite';
 import { useEffect } from 'react';
+import NoResults from '@/components/NoResults';
 // import seed from '@/lib/seed';
 
 export default function Index() {
@@ -92,6 +93,11 @@ export default function Index() {
                 horizontal
                 bounces={false}
                 showsHorizontalScrollIndicator={false}
+                ListEmptyComponent={
+                  loading ? (
+                    <ActivityIndicator size="large" className="text-primary-300 mt-5" />
+                  ) : <NoResults />
+                }
                 contentContainerClassName="flex gap-5 mt-5"
               />
             </View>
